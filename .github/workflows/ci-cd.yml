@@ -34,3 +34,9 @@ jobs:
           python app.py &
           sleep 10
           curl --fail http://127.0.0.1:5000 || exit 1
+
+      - name: Auto-format with autopep8
+        run: |
+          pip install autopep8
+          autopep8 --in-place --aggressive --aggressive car_prediction.py
+          autopep8 --in-place --aggressive --aggressive main.py
