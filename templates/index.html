@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán giá xe</title>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Dự đoán giá xe</h2>
+        <form action="/predict" method="post">
+            <label>Chọn mô hình:</label>
+            <select name="model_name">
+                {% for model in models %}
+                    <option value="{{ model }}" {% if model == selected_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+            
+            <label>Năm sản xuất:</label>
+            <input type="number" name="year" required>
+            
+            <label>Số km đã đi:</label>
+            <input type="number" name="km_driven" required>
+            
+            <label>Loại nhiên liệu:</label>
+            <select name="fuel">
+                <option value="0">Diesel</option>
+                <option value="1">Petrol</option>
+                <option value="2">CNG</option>
+                <option value="3">LPG</option>
+            </select>
+            
+            <label>Loại người bán:</label>
+            <select name="seller_type">
+                <option value="0">Dealer</option>
+                <option value="1">Individual</option>
+            </select>
+            
+            <label>Hộp số:</label>
+            <select name="transmission">
+                <option value="0">Manual</option>
+                <option value="1">Automatic</option>
+            </select>
+            
+            <label>Số chủ sở hữu:</label>
+            <select name="owner">
+                <option value="0">First Owner</option>
+                <option value="1">Second Owner</option>
+                <option value="2">Third Owner</option>
+                <option value="3">Fourth & Above Owner</option>
+            </select>
+            
+            <label>Dung tích động cơ (CC):</label>
+            <input type="number" name="engine" required>
+            
+            <label>Số ghế:</label>
+            <input type="number" name="seats" required>
+            
+            <button type="submit">Dự đoán</button>
+        </form>
+        
+        {% if prediction_text %}
+        <div class="result">
+            <p><strong>Giá xe dự đoán:</strong> {{ prediction_text }}</p>
+            <p><strong>R² Score:</strong> {{ r2_score }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
