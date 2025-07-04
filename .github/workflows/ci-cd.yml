@@ -26,7 +26,7 @@ jobs:
 
       - name: Run app (for testing)
         run: |
-          python app.py &
+          python main.py &
           sleep 10
           curl --fail http://127.0.0.1:5000 || exit 1
 
